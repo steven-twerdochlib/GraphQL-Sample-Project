@@ -1,0 +1,68 @@
+# Get all Books
+query allBooks {
+  getAllBooks {
+    id
+    name
+    pageCount
+    status
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+
+#Get all Authors
+query allAuthors {
+  getAllAuthors {
+    id
+    firstName
+    lastName
+  }
+}
+
+# Search multiple books by specific book id's.
+query bookDetails {
+  book1: bookById(id: "book-1") {
+    id
+    name
+    pageCount
+    status
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+  book2: bookById(id: "book-2") {
+    id
+    name
+    pageCount
+    status
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+
+# Get all Books with a greater page count than or equal to 300.
+query greaterPageCount{
+  bookByMinPageCount(minPageCount: 300){
+    id
+    name
+    pageCount
+    status
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+
+curl -X POST -H "Content-Type: application/json" -d "{\"query\":\"query{getAllBooks{id name}}\"}" http://localhost:8080/graphql
+curl -X POST -H "Content-Type: application/json" -d "{\"query\":\"query{bookByMinPageCount(minPageCount: 300){id name}}\"}" http://localhost:8080/graphql
+curl -X POST -H "Content-Type: application/json" -d "{\"query\":\"query{bookById(id: \\\"book-2\\\"){id name}}\"}" http://localhost:8080/graphql

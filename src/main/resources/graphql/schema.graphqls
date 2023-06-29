@@ -1,0 +1,35 @@
+type Query {
+    bookById(id: ID): Book
+    bookByMinPageCount(minPageCount: Int): [Book]
+    getAllBooks: [Book]
+    getAllAuthors: [Author]
+}
+
+type Book {
+    id: ID
+    name: String
+    pageCount: Int
+    status: Status
+    author: Author
+}
+
+type Author {
+    id: ID
+    firstName: String
+    lastName: String
+}
+
+input AuthorInput {
+    id: ID
+    firstName: String
+    lastName: String
+}
+
+enum Status {
+	PUBLISHED
+	NOT_PUBLISHED
+}
+
+type Mutation {
+    addBook(id: ID! name: String!, pageCount: Int! status: Status! authorId: String): Book!
+}
